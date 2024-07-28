@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>映画上映開始時間計算機</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>映画上映開始時間計算機</h1>
+        <form id="timeForm">
+            <label for="startTime">上映開始時間:</label>
+            <input type="time" id="startTime" required>
+
+            <label for="endTime">上映終了時間:</label>
+            <input type="time" id="endTime" required>
+
+            <label for="movieDuration">本編の上映時間（分）:</label>
+            <input type="number" id="movieDuration" required>
+
+            <button type="submit">計算</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
