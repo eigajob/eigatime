@@ -31,27 +31,8 @@ document.getElementById("timeForm").addEventListener("submit", function(event) {
     document.getElementById("result").textContent = `本編の開始時間は ${formattedStartHours}:${formattedStartMinutes} です。`;
 });
 
-document.getElementById("endTime").addEventListener("change", function() {
-    let timeInput = this.value;
-    if (timeInput) {
-        let [hours, minutes] = timeInput.split(":").map(Number);
 
-        // 5分単位に丸める
-        minutes = Math.round(minutes / 5) * 5;
-        if (minutes === 60) {
-            hours += 1;
-            minutes = 0;
-        }
-
-        // 0埋めでフォーマットを整える
-        let formattedHours = String(hours).padStart(2, "0");
-        let formattedMinutes = String(minutes).padStart(2, "0");
-
-        this.value = `${formattedHours}:${formattedMinutes}`;
-    }
-});
-
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function() {
     const endTimeSelect = document.getElementById("endTime");
 
     // 5分単位での時間オプションを生成（例: 00:00 〜 23:55）
@@ -69,4 +50,4 @@ window.onload = function() {
             endTimeSelect.appendChild(optionElement);
         }
     }
-};
+});
