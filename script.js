@@ -50,3 +50,23 @@ document.getElementById("endTime").addEventListener("change", function() {
         this.value = `${formattedHours}:${formattedMinutes}`;
     }
 });
+
+window.onload = function() {
+    const endTimeSelect = document.getElementById("endTime");
+
+    // 5分単位での時間オプションを生成（例: 00:00 〜 23:55）
+    for (let hours = 0; hours < 24; hours++) {
+        for (let minutes = 0; minutes < 60; minutes += 5) {
+            // 時間をフォーマット（例: 02:05 -> "02:05"）
+            let formattedHours = String(hours).padStart(2, "0");
+            let formattedMinutes = String(minutes).padStart(2, "0");
+            let timeOption = `${formattedHours}:${formattedMinutes}`;
+
+            // オプション要素を生成
+            let optionElement = document.createElement("option");
+            optionElement.value = timeOption;
+            optionElement.textContent = timeOption;
+            endTimeSelect.appendChild(optionElement);
+        }
+    }
+};
