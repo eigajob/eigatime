@@ -1,26 +1,34 @@
-document.getElementById('timeForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.getElementById("timeForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // ページリロードを防ぐ
 
-    const startTime = document.getElementById('startTime').value;
-    const endTime = document.getElementById('endTime').value;
-    const movieDuration = parseInt(document.getElementById('movieDuration').value);
+    // 上映終了時間と本編の上映時間を取得
+    const endTimeInput = document.getElementById("endTime").value;
+    const movieDurationInput = document.getElementById("movieDuration").value;
 
-    if (startTime && endTime && movieDuration) {
-        const start = new Date(`1970-01-01T${startTime}Z`);
-        const end = new Date(`1970-01-01T${endTime}Z`);
-        const duration = movieDuration * 60000; // Convert minutes to milliseconds
-
-        const previewDuration = end - start - duration;
-        const movieStart = new Date(start.getTime() + previewDuration);
-
-        const hours = movieStart.getUTCHours();
-        const minutes = movieStart.getUTCMinutes();
-        const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-
-        document.getElementById('result').textContent = `本編開始時間: ${formattedTime}`;
-    } else {
-        document.getElementById('result').textContent = 'すべてのフィールドを正しく入力してください。';
+    // 入力チェック
+    if (!endTimeInput || !movieDurationInput) {
+        document.getElementById("result").textContent = "すべてのフィールドを入力してください。";
+        return;
     }
+
+    // 終了時間の計算 (hoursとminutesに分割)
+    let [endHours, endMinutes] = endTimeInput.split(":").map(Number);
+
+    // 本編の上映時間を引いて開始時間を計算
+    let movieDuration = Number(movieDurationInput);
+    let totalEndMinutes = endHours * 60 + endMinutes; // 終了時間を分に変換
+    let startMinutes = totalEndMinutes - movieDuration; // 開始時間を分で計算
+
+    // 開始時間を時刻に戻す
+    let startHours = Math.floor(startMinutes / 60);
+    let startMinutesRemaining = startMinutes % 60;
+
+    // 0埋めでフォーマット
+    let formattedStartHours = String(startHours).padStart(2, "0");
+    let formattedStartMinutes = String(startMinutesRemaining).padStart(2, "0");
+
+    // 結果を表示
+    document.getElementById("result").textContent = `本編の開始時間は ${formattedStartHours}:${formattedStartMinutes} です。`;
 });
 
 document.getElementById("endTime").addEventListener("change", function() {
