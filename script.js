@@ -22,3 +22,23 @@ document.getElementById('timeForm').addEventListener('submit', function(event) {
         document.getElementById('result').textContent = 'すべてのフィールドを正しく入力してください。';
     }
 });
+
+document.getElementById("endTime").addEventListener("change", function() {
+    let timeInput = this.value;
+    if (timeInput) {
+        let [hours, minutes] = timeInput.split(":").map(Number);
+
+        // 5分単位に丸める
+        minutes = Math.round(minutes / 5) * 5;
+        if (minutes === 60) {
+            hours += 1;
+            minutes = 0;
+        }
+
+        // 0埋めでフォーマットを整える
+        let formattedHours = String(hours).padStart(2, "0");
+        let formattedMinutes = String(minutes).padStart(2, "0");
+
+        this.value = `${formattedHours}:${formattedMinutes}`;
+    }
+});
