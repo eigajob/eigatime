@@ -11,7 +11,8 @@
         <h1>映画上映開始時間計算機</h1>
         <form id="timeForm">
             <label for="endTime">上映終了時間:</label>
-            <input type="time" id="endTime" required>
+            <!-- 5分単位で選択できるように step="300" を追加 -->
+            <input type="time" id="endTime" step="300" required>
 
             <label for="movieDuration">本編の上映時間（分）:</label>
             <input type="number" id="movieDuration" required>
